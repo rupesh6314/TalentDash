@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Level {
+  L3
+  L4
+  L5
+  L6
+  SDE_I
+  SDE_II
+  SDE_III
+  STAFF
+  PRINCIPAL
+  IC4
+  IC5
+}
+
+enum Currency {
+  INR
+  USD
+  GBP
+  EUR
+}
+
+enum Source {
+  CONTRIBUTOR
+  SCRAPED
+  AI_INFERRED
+}
+
+model Company {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  normalizedName String @unique
+  industry    String?
+  headquarters String?
+  foundedYear Int?
+  logo        String?
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  salaries    Salary[]
+  reviews     Review[]
+  interviews  Interview[]
+}
+
+model Salary {
+  id                String   @id @default(cuid())
+  companyId         String
+  company           Company  @relation(fields: [companyId], references: [id])
+  role              String
+  level             Level
+  location          String
+  currency          Currency @default(USD)
+  experienceYears   Int
+  baseSalary        BigInt
+  bonus             BigInt   @default(0)
+  stock             BigInt   @default(0)
+  totalCompensation BigInt
+  source            Source   @default(CONTRIBUTOR)
+  submittedAt       DateTime @default(now())
+
+  @@index([companyId, level, location])
+  @@index([totalCompensation])
+  @@index([submittedAt])
+  @@index([location, level])
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id])
+  rating      Int      @default(3)
+  pros        String
+  cons        String
+  advice      String?
+  isAnonymous Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model Interview {
+  id          String   @id @default(cuid())
+  companyId   String
+  company     Company  @relation(fields: [companyId], references: [id])
+  role        String
+  difficulty  String
+  experience  String
+  outcome     String
+  createdAt   DateTime @default(now())
+}
+
+model CommunityPost {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  authorName  String
+  authorRole  String?
+  company     String?
+  likes       Int      @default(0)
+  replies     Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
