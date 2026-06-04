@@ -36,25 +36,25 @@ export default async function InterviewsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-2">Interview Experiences</h1>
-      <p className="text-gray-600 mb-8">Real interview questions and experiences shared by candidates.</p>
+      <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Interview Experiences</h1>
+      <p className="text-gray-600 dark:text-gray-300 mb-8">Real interview questions and experiences shared by candidates.</p>
 
       <div className="space-y-6">
         {interviews.map((interview) => (
           <Card key={interview.id} hover className="p-6">
             <div className="flex flex-wrap justify-between items-start gap-4">
               <div className="flex-1">
-                <h2 className="text-xl font-semibold">
-                  <a href={`/companies/${interview.companySlug}`} className="hover:text-blue-600">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <a href={`/companies/${interview.companySlug}`} className="hover:text-blue-600 dark:hover:text-blue-400">
                     {interview.companyName}
                   </a>
-                  <span className="text-gray-500 text-lg ml-2">· {interview.role}</span>
+                  <span className="text-gray-500 dark:text-gray-400 text-lg ml-2">· {interview.role}</span>
                 </h2>
                 <div className="flex gap-2 mt-2">
                   <Badge variant={difficultyColor(interview.difficulty)}>Difficulty: {interview.difficulty}</Badge>
                   <Badge variant={interview.outcome === 'Offer' ? 'success' : 'default'}>Outcome: {interview.outcome}</Badge>
                 </div>
-                <p className="text-gray-700 mt-3">{interview.experience}</p>
+                <p className="text-gray-700 dark:text-gray-300 mt-3">{interview.experience}</p>
               </div>
             </div>
             <div className="text-xs text-gray-400 mt-4">

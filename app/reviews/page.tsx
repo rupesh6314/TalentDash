@@ -27,16 +27,16 @@ export default async function ReviewsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-2">Company Reviews</h1>
-      <p className="text-gray-600 mb-8">Honest reviews from real employees. See pros, cons, and advice.</p>
+      <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Company Reviews</h1>
+      <p className="text-gray-600 dark:text-gray-300 mb-8">Honest reviews from real employees. See pros, cons, and advice.</p>
 
       <div className="space-y-6">
         {reviews.map((review) => (
           <Card key={review.id} hover className="p-6">
             <div className="flex justify-between items-start">
               <div>
-                <h2 className="text-xl font-semibold">
-                  <a href={`/companies/${review.companySlug}`} className="hover:text-blue-600">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <a href={`/companies/${review.companySlug}`} className="hover:text-blue-600 dark:hover:text-blue-400">
                     {review.companyName}
                   </a>
                 </h2>
@@ -51,9 +51,9 @@ export default async function ReviewsPage() {
                   <Badge variant="info">{review.rating}/5</Badge>
                 </div>
                 <div className="mt-3">
-                  <p className="text-gray-700"><strong>Pros:</strong> {review.pros}</p>
-                  <p className="text-gray-700 mt-1"><strong>Cons:</strong> {review.cons}</p>
-                  {review.advice && <p className="text-gray-700 mt-1"><strong>Advice to management:</strong> {review.advice}</p>}
+                  <p className="text-gray-700 dark:text-gray-300"><strong>Pros:</strong> {review.pros}</p>
+                  <p className="text-gray-700 dark:text-gray-300 mt-1"><strong>Cons:</strong> {review.cons}</p>
+                  {review.advice && <p className="text-gray-700 dark:text-gray-300 mt-1"><strong>Advice to management:</strong> {review.advice}</p>}
                 </div>
               </div>
             </div>
