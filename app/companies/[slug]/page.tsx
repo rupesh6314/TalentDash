@@ -43,17 +43,17 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold">{company.name}</h1>
-      <p className="text-gray-600">{company.headquarters} · Founded {company.foundedYear || 'N/A'}</p>
+      <h1 className="text-4xl font-bold text-gray-900 dark:text-white">{company.name}</h1>
+      <p className="text-gray-600 dark:text-gray-400">{company.headquarters} · Founded {company.foundedYear || 'N/A'}</p>
 
       <div className="grid grid-cols-3 gap-4 my-6">
-        <Card className="p-4 text-center"><div className="text-sm text-gray-500">Median TC</div><div className="text-2xl font-bold">${median.toLocaleString('en-US')}</div></Card>
-        <Card className="p-4 text-center"><div className="text-sm text-gray-500">Salaries</div><div className="text-2xl font-bold">{salaries.length}</div></Card>
-        <Card className="p-4 text-center"><div className="text-sm text-gray-500">Industry</div><div className="text-2xl font-bold">{company.industry || '—'}</div></Card>
+        <Card className="p-4 text-center"><div className="text-sm text-gray-500 dark:text-gray-400">Median TC</div><div className="text-2xl font-bold text-gray-900 dark:text-white">${median.toLocaleString('en-US')}</div></Card>
+        <Card className="p-4 text-center"><div className="text-sm text-gray-500 dark:text-gray-400">Salaries</div><div className="text-2xl font-bold text-gray-900 dark:text-white">{salaries.length}</div></Card>
+        <Card className="p-4 text-center"><div className="text-sm text-gray-500 dark:text-gray-400">Industry</div><div className="text-2xl font-bold text-gray-900 dark:text-white">{company.industry || '—'}</div></Card>
       </div>
 
       <LevelDistribution distribution={levelDist} />
-      <h2 className="text-2xl font-bold mt-8 mb-4">Salaries at {company.name}</h2>
+      <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">Salaries at {company.name}</h2>
       <SalaryTable salaries={salaries} />
     </div>
   );
