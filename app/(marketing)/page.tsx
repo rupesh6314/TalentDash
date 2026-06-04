@@ -121,7 +121,7 @@ export default async function HomePage() {
           <Button
             size="lg"
             href="/salaries/contribute"
-            className="bg-white !text-blue-600 hover:bg-blue-50 font-bold shadow-lg"
+            className="!bg-white !text-blue-600 hover:!bg-blue-50 font-bold shadow-lg"
           >
             Contribute now →
           </Button>
