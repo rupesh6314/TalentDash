@@ -1,6 +1,9 @@
 const levelBadges: Record<string, string> = {
-  L3: 'bg-gray-200 dark:bg-gray-700 dark:text-gray-200', L4: 'bg-blue-200 dark:bg-blue-900/50 dark:text-blue-200', L5: 'bg-indigo-200 dark:bg-indigo-900/50 dark:text-indigo-200',
-  STAFF: 'bg-purple-200 dark:bg-purple-900/50 dark:text-purple-200', PRINCIPAL: 'bg-navy-800 text-white dark:bg-indigo-600',
+  L3: 'bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-200', 
+  L4: 'bg-blue-200 text-blue-900 dark:bg-blue-900/50 dark:text-blue-200', 
+  L5: 'bg-indigo-200 text-indigo-900 dark:bg-indigo-900/50 dark:text-indigo-200',
+  STAFF: 'bg-purple-200 text-purple-900 dark:bg-purple-900/50 dark:text-purple-200', 
+  PRINCIPAL: 'bg-slate-800 text-white dark:bg-indigo-600 dark:text-white',
 };
 
 export function SalaryTable({ salaries }: { salaries: any[] }) {
@@ -29,7 +32,7 @@ export function SalaryTable({ salaries }: { salaries: any[] }) {
                 </td>
                 <td className="p-3">{s.role}</td>
                 <td className="p-3">
-                  <span className={`px-2 py-1 rounded text-xs font-semibold ${levelBadges[s.level] || 'bg-gray-100'}`}>
+                  <span className={`px-2 py-1 rounded text-xs font-semibold ${levelBadges[s.level] || 'bg-gray-100 dark:bg-gray-700 dark:text-gray-200'}`}>
                     {s.level}
                   </span>
                 </td>
