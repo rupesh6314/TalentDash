@@ -13,33 +13,33 @@ export default function OfferComparisonPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-2">Offer Comparison</h1>
-      <p className="text-gray-600 mb-8">Compare two job offers side by side.</p>
+      <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Offer Comparison</h1>
+      <p className="text-gray-600 dark:text-gray-300 mb-8">Compare two job offers side by side.</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <Card className="p-6">
-          <h2 className="text-xl font-bold mb-4">Offer A</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Offer A</h2>
           <div className="space-y-3">
-            <div><label className="font-medium">Base Salary:</label> <input type="number" value={offer1.base} onChange={(e) => setOffer1({...offer1, base: Number(e.target.value)})} className="ml-2 px-2 py-1 border rounded" /></div>
-            <div><label className="font-medium">Bonus:</label> <input type="number" value={offer1.bonus} onChange={(e) => setOffer1({...offer1, bonus: Number(e.target.value)})} className="ml-2 px-2 py-1 border rounded" /></div>
-            <div><label className="font-medium">Equity:</label> <input type="number" value={offer1.equity} onChange={(e) => setOffer1({...offer1, equity: Number(e.target.value)})} className="ml-2 px-2 py-1 border rounded" /></div>
+            <div><label className="font-medium text-gray-900 dark:text-gray-200">Base Salary:</label> <input type="number" value={offer1.base} onChange={(e) => setOffer1({...offer1, base: Number(e.target.value)})} className="ml-2 px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded" /></div>
+            <div><label className="font-medium text-gray-900 dark:text-gray-200">Bonus:</label> <input type="number" value={offer1.bonus} onChange={(e) => setOffer1({...offer1, bonus: Number(e.target.value)})} className="ml-2 px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded" /></div>
+            <div><label className="font-medium text-gray-900 dark:text-gray-200">Equity:</label> <input type="number" value={offer1.equity} onChange={(e) => setOffer1({...offer1, equity: Number(e.target.value)})} className="ml-2 px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded" /></div>
           </div>
-          <div className="mt-4 pt-2 border-t"><span className="font-bold">Total: ${total1.toLocaleString('en-US')}</span></div>
+          <div className="mt-4 pt-2 border-t dark:border-gray-700"><span className="font-bold text-gray-900 dark:text-white">Total: ${total1.toLocaleString('en-US')}</span></div>
         </Card>
 
         <Card className="p-6">
-          <h2 className="text-xl font-bold mb-4">Offer B</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Offer B</h2>
           <div className="space-y-3">
-            <div><label className="font-medium">Base Salary:</label> <input type="number" value={offer2.base} onChange={(e) => setOffer2({...offer2, base: Number(e.target.value)})} className="ml-2 px-2 py-1 border rounded" /></div>
-            <div><label className="font-medium">Bonus:</label> <input type="number" value={offer2.bonus} onChange={(e) => setOffer2({...offer2, bonus: Number(e.target.value)})} className="ml-2 px-2 py-1 border rounded" /></div>
-            <div><label className="font-medium">Equity:</label> <input type="number" value={offer2.equity} onChange={(e) => setOffer2({...offer2, equity: Number(e.target.value)})} className="ml-2 px-2 py-1 border rounded" /></div>
+            <div><label className="font-medium text-gray-900 dark:text-gray-200">Base Salary:</label> <input type="number" value={offer2.base} onChange={(e) => setOffer2({...offer2, base: Number(e.target.value)})} className="ml-2 px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded" /></div>
+            <div><label className="font-medium text-gray-900 dark:text-gray-200">Bonus:</label> <input type="number" value={offer2.bonus} onChange={(e) => setOffer2({...offer2, bonus: Number(e.target.value)})} className="ml-2 px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded" /></div>
+            <div><label className="font-medium text-gray-900 dark:text-gray-200">Equity:</label> <input type="number" value={offer2.equity} onChange={(e) => setOffer2({...offer2, equity: Number(e.target.value)})} className="ml-2 px-2 py-1 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded" /></div>
           </div>
-          <div className="mt-4 pt-2 border-t"><span className="font-bold">Total: ${total2.toLocaleString('en-US')}</span></div>
+          <div className="mt-4 pt-2 border-t dark:border-gray-700"><span className="font-bold text-gray-900 dark:text-white">Total: ${total2.toLocaleString('en-US')}</span></div>
         </Card>
       </div>
 
-      <div className="mt-8 bg-gray-50 p-4 rounded-lg border">
-        <h3 className="font-semibold">Difference (A - B)</h3>
+      <div className="mt-8 bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border dark:border-gray-800">
+        <h3 className="font-semibold text-gray-900 dark:text-white">Difference (A - B)</h3>
         <div className={`text-2xl font-bold ${diff >= 0 ? 'text-green-600' : 'text-red-600'}`}>
           {diff >= 0 ? '+' : ''}{diff.toLocaleString('en-US')} {diff >= 0 ? '→ Offer A pays more' : '→ Offer B pays more'}
         </div>

@@ -23,10 +23,10 @@ export function SalaryHeatmap({ data }: { data: { location: string; role: string
           const maxComp = Math.max(...items.map(i => i.avgComp));
           const intensity = (items[0].avgComp / maxComp) * 100;
           return (
-            <div key={key} className="p-4 border rounded-lg bg-gradient-to-br from-white to-gray-50" style={{ borderLeftColor: `rgba(59,130,246,${intensity/100})`, borderLeftWidth: '4px' }}>
-              <div className="font-semibold text-lg">{key}</div>
-              <div className="text-brand-600 text-xl font-bold">${Math.round(items[0].avgComp).toLocaleString('en-US')}</div>
-              <div className="text-xs text-gray-500 mt-1">{items[0].location} · {items[0].role}</div>
+            <div key={key} className="p-4 border dark:border-gray-700 rounded-lg bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900" style={{ borderLeftColor: `rgba(59,130,246,${intensity/100})`, borderLeftWidth: '4px' }}>
+              <div className="font-semibold text-lg text-gray-900 dark:text-white">{key}</div>
+              <div className="text-brand-600 dark:text-blue-400 text-xl font-bold">${Math.round(items[0].avgComp).toLocaleString('en-US')}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{items[0].location} · {items[0].role}</div>
             </div>
           );
         })}

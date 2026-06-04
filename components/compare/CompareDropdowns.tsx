@@ -29,13 +29,13 @@ export function CompareDropdowns({ options }: { options: CompareOption[] }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8 max-w-4xl mx-auto">
-      <h2 className="text-lg font-bold text-gray-900 mb-4">Select Records to Compare</h2>
+    <div className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 mb-8 max-w-4xl mx-auto">
+      <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Select Records to Compare</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Record A</label>
+          <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Record A</label>
           <select 
-            className="w-full border-gray-300 border rounded-lg px-4 py-2 bg-gray-50 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border-gray-300 dark:border-gray-700 border rounded-lg px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500"
             value={s1}
             onChange={(e) => {
               setS1(e.target.value);
@@ -50,9 +50,9 @@ export function CompareDropdowns({ options }: { options: CompareOption[] }) {
           </select>
         </div>
         <div>
-          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Record B</label>
+          <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Record B</label>
           <select 
-            className="w-full border-gray-300 border rounded-lg px-4 py-2 bg-gray-50 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full border-gray-300 dark:border-gray-700 border rounded-lg px-4 py-2 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500"
             value={s2}
             onChange={(e) => {
               setS2(e.target.value);

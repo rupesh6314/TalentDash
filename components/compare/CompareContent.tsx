@@ -32,10 +32,10 @@ export function CompareContent() {
 
   if (!s1 || !s2) {
     return (
-      <div className="text-center py-16 bg-white rounded-2xl shadow-sm border border-gray-100">
+      <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
         <div className="text-5xl mb-4">⚖️</div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Compare Two Offers</h2>
-        <p className="text-gray-600 mb-6">Select two salary records from above or the Salary Explorer to compare them side-by-side.</p>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Compare Two Offers</h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">Select two salary records from above or the Salary Explorer to compare them side-by-side.</p>
         <Link href="/salaries" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
           Go to Salary Explorer
         </Link>
@@ -59,11 +59,11 @@ export function CompareContent() {
     <div className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Record 1 */}
-        <Card className={`p-8 border-2 ${winner === 'Record A' ? 'border-green-400 bg-green-50/10' : 'border-transparent'}`}>
+        <Card className={`p-8 border-2 ${winner === 'Record A' ? 'border-green-400 bg-green-50/10 dark:bg-green-900/10' : 'border-transparent'}`}>
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">{record1.company.name}</h2>
-              <p className="text-gray-600 font-medium mt-1">{record1.role} · {record1.level}</p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{record1.company.name}</h2>
+              <p className="text-gray-600 dark:text-gray-400 font-medium mt-1">{record1.role} · {record1.level}</p>
             </div>
             {winner === 'Record A' && (
               <span className="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
@@ -72,17 +72,17 @@ export function CompareContent() {
             )}
           </div>
           <div className="space-y-4">
-            <div className="flex justify-between border-b pb-2">
-              <span className="text-gray-500">Location</span>
-              <span className="font-medium">{record1.location}</span>
+            <div className="flex justify-between border-b dark:border-gray-700 pb-2">
+              <span className="text-gray-500 dark:text-gray-400">Location</span>
+              <span className="font-medium text-gray-900 dark:text-gray-200">{record1.location}</span>
             </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="text-gray-500">Experience</span>
-              <span className="font-medium">{record1.experienceYears} years</span>
+            <div className="flex justify-between border-b dark:border-gray-700 pb-2">
+              <span className="text-gray-500 dark:text-gray-400">Experience</span>
+              <span className="font-medium text-gray-900 dark:text-gray-200">{record1.experienceYears} years</span>
             </div>
             <div className="pt-4">
-              <span className="block text-sm text-gray-500 mb-1">Total Compensation ({record1.currency})</span>
-              <p className="text-4xl font-bold text-gray-900">
+              <span className="block text-sm text-gray-500 dark:text-gray-400 mb-1">Total Compensation ({record1.currency})</span>
+              <p className="text-4xl font-bold text-gray-900 dark:text-white">
                 {record1.currency === 'USD' ? '$' : '₹'}{formatValue(record1.totalCompensation)}
               </p>
             </div>
@@ -90,11 +90,11 @@ export function CompareContent() {
         </Card>
 
         {/* Record 2 */}
-        <Card className={`p-8 border-2 ${winner === 'Record B' ? 'border-green-400 bg-green-50/10' : 'border-transparent'}`}>
+        <Card className={`p-8 border-2 ${winner === 'Record B' ? 'border-green-400 bg-green-50/10 dark:bg-green-900/10' : 'border-transparent'}`}>
           <div className="flex justify-between items-start mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">{record2.company.name}</h2>
-              <p className="text-gray-600 font-medium mt-1">{record2.role} · {record2.level}</p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{record2.company.name}</h2>
+              <p className="text-gray-600 dark:text-gray-400 font-medium mt-1">{record2.role} · {record2.level}</p>
             </div>
             {winner === 'Record B' && (
               <span className="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
@@ -103,17 +103,17 @@ export function CompareContent() {
             )}
           </div>
           <div className="space-y-4">
-            <div className="flex justify-between border-b pb-2">
-              <span className="text-gray-500">Location</span>
-              <span className="font-medium">{record2.location}</span>
+            <div className="flex justify-between border-b dark:border-gray-700 pb-2">
+              <span className="text-gray-500 dark:text-gray-400">Location</span>
+              <span className="font-medium text-gray-900 dark:text-gray-200">{record2.location}</span>
             </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="text-gray-500">Experience</span>
-              <span className="font-medium">{record2.experienceYears} years</span>
+            <div className="flex justify-between border-b dark:border-gray-700 pb-2">
+              <span className="text-gray-500 dark:text-gray-400">Experience</span>
+              <span className="font-medium text-gray-900 dark:text-gray-200">{record2.experienceYears} years</span>
             </div>
             <div className="pt-4">
-              <span className="block text-sm text-gray-500 mb-1">Total Compensation ({record2.currency})</span>
-              <p className="text-4xl font-bold text-gray-900">
+              <span className="block text-sm text-gray-500 dark:text-gray-400 mb-1">Total Compensation ({record2.currency})</span>
+              <p className="text-4xl font-bold text-gray-900 dark:text-white">
                 {record2.currency === 'USD' ? '$' : '₹'}{formatValue(record2.totalCompensation)}
               </p>
             </div>
@@ -121,29 +121,29 @@ export function CompareContent() {
         </Card>
 
         {/* Delta / Difference */}
-        <div className="col-span-1 md:col-span-2 bg-white p-8 rounded-xl shadow-sm border border-gray-200 mt-4">
-          <h3 className="text-xl font-bold mb-6 text-gray-900 border-b pb-4">Comparison Breakdown</h3>
+        <div className="col-span-1 md:col-span-2 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 mt-4">
+          <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white border-b dark:border-gray-800 pb-4">Comparison Breakdown</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <div className="text-sm text-gray-500 mb-1">Total Comp Diff</div>
+            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border dark:border-gray-700">
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Total Comp Diff</div>
               <div className={`text-xl font-bold ${delta.tcDelta >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                 {delta.tcDelta > 0 ? '+' : ''}{formatValue(delta.tcDelta)}
               </div>
             </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <div className="text-sm text-gray-500 mb-1">Base Salary Diff</div>
+            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border dark:border-gray-700">
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Base Salary Diff</div>
               <div className={`text-xl font-bold ${delta.baseDelta >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                 {delta.baseDelta > 0 ? '+' : ''}{formatValue(delta.baseDelta)}
               </div>
             </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <div className="text-sm text-gray-500 mb-1">Bonus Diff</div>
+            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border dark:border-gray-700">
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Bonus Diff</div>
               <div className={`text-xl font-bold ${delta.bonusDelta >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                 {delta.bonusDelta > 0 ? '+' : ''}{formatValue(delta.bonusDelta)}
               </div>
             </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <div className="text-sm text-gray-500 mb-1">Stock Diff</div>
+            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border dark:border-gray-700">
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Stock Diff</div>
               <div className={`text-xl font-bold ${delta.stockDelta >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                 {delta.stockDelta > 0 ? '+' : ''}{formatValue(delta.stockDelta)}
               </div>
