@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const navItems = [
   { label: 'Companies', href: '/companies' },
@@ -19,33 +18,33 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white dark:bg-gray-900 border-b dark:border-gray-800 sticky top-0 z-50 transition-colors duration-200">
+    <header className="bg-surface border-b border-border sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-800 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+        <Link href="/" className="text-2xl font-bold text-deep-text flex items-center gap-2">
+          <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center text-white">T</div>
           TalentDash
         </Link>
-        <nav className="hidden md:flex gap-6">
+        <nav className="hidden md:flex gap-6 font-medium">
           {navItems.map(item => (
-            <Link key={item.href} href={item.href} className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">
+            <Link key={item.href} href={item.href} className="text-body-text hover:text-primary transition">
               {item.label}
             </Link>
           ))}
         </nav>
-        <div className="hidden md:flex items-center gap-2">
-          <ThemeToggle />
-          <Button variant="ghost" className="dark:text-gray-300 dark:hover:bg-gray-800">Log in</Button>
+        <div className="hidden md:flex items-center gap-4">
+          <Button variant="ghost">Log in</Button>
           <Button variant="primary">Sign up</Button>
         </div>
-        <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        <button className="md:hidden text-deep-text" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
       </div>
       {mobileMenuOpen && (
-        <div className="md:hidden border-t p-4 space-y-2">
+        <div className="md:hidden border-t border-border p-4 space-y-2 bg-surface">
           {navItems.map(item => (
-            <Link key={item.href} href={item.href} className="block py-2 text-gray-700 hover:text-blue-600">
+            <Link key={item.href} href={item.href} className="block py-2 text-body-text hover:text-primary">
               {item.label}
             </Link>
           ))}

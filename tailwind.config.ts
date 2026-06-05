@@ -1,16 +1,25 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#eff6ff',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-        },
+        primary: '#FF5A5F', // Coral Red
+        'deep-text': '#222222', // Airbnb Black
+        'body-text': '#484848', // Soft Dark Gray
+        muted: '#717171', // Neutral Gray
+        surface: '#FFFFFF', // Pure White
+        background: '#F7F7F7', // Soft Gray
+        border: '#EBEBEB', // Light Border
+        success: '#008A05', // Positive Indicator
+        warning: '#FFB400', // Alert Indicator
+        error: '#D93025', // Risk/Error
+        hover: '#F2F2F2', // Hover Surface
+        // Data blue for total comp as specified in F2
+        'data-blue': '#0369A1', 
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

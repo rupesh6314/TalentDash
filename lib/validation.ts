@@ -7,9 +7,10 @@ export const ingestSalarySchema = z.object({
   level: z.enum(Object.values(Level) as [string, ...string[]]),
   location: z.string().min(1),
   currency: z.enum(Object.values(Currency) as [string, ...string[]]).default('USD'),
-  experienceYears: z.number().int().min(0).max(50),
+  experienceYears: z.number().int().min(1).max(50),
   baseSalary: z.number().int().positive(),
   bonus: z.number().int().min(0).default(0),
   stock: z.number().int().min(0).default(0),
   source: z.enum(Object.values(Source) as [string, ...string[]]).default('CONTRIBUTOR'),
+  confidenceScore: z.number().min(0.0).max(1.0).default(1.0),
 });

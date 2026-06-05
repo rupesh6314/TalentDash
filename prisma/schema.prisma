@@ -65,6 +65,8 @@ model Salary {
   stock             BigInt   @default(0)
   totalCompensation BigInt
   source            Source   @default(CONTRIBUTOR)
+  confidenceScore   Decimal  @db.Decimal(3, 2)
+  isVerified        Boolean  @default(false)
   submittedAt       DateTime @default(now())
 
   @@index([companyId, level, location])

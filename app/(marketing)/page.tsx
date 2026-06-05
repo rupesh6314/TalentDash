@@ -1,130 +1,158 @@
 import { prisma } from '@/lib/prisma';
 import { Button } from '@/components/ui/Button';
-import { StatsCard } from '@/components/ui/StatsCard';
-import { TopCompanies } from '@/components/salaries/TopCompanies';
-import { SalaryHeatmap } from '@/components/salaries/SalaryHeatmap';
+import { Card } from '@/components/ui/Card';
+import Link from 'next/link';
 
-export const revalidate = 3600; // ISR – revalidate every hour
-
-async function getHomeData() {
-  // Total counts
-  const totalSalaries = await prisma.salary.count();
-  const totalCompanies = await prisma.company.count();
-
-  // Top 4 companies by highest salary (take the highest salary per company)
-  const topCompaniesRaw = await prisma.company.findMany({
-    take: 4,
-    include: {
-      salaries: {
-        orderBy: { totalCompensation: 'desc' },
-        take: 1,
-      },
-    },
-  });
-
-  const topCompanies = topCompaniesRaw.map((c) => ({
-    name: c.name,
-    slug: c.slug,
-    avgComp: Number(c.salaries[0]?.totalCompensation || 0),
-    growth: '+19% vs last year',
-  }));
-
-  // Heatmap: average total compensation by location and role (top 12)
-  const heatmapDataRaw = await prisma.salary.groupBy({
-    by: ['location', 'role'],
-    _avg: { totalCompensation: true },
-    take: 12,
-    orderBy: { _avg: { totalCompensation: 'desc' } },
-  });
-
-  const heatmapData = heatmapDataRaw.map((d) => ({
-    location: d.location,
-    role: d.role,
-    avgComp: Number(d._avg.totalCompensation),
-  }));
-
-  return { totalSalaries, totalCompanies, topCompanies, heatmapData };
-}
+export const revalidate = 3600;
 
 export default async function HomePage() {
-  const { totalSalaries, totalCompanies, topCompanies, heatmapData } = await getHomeData();
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-indigo-700 dark:from-blue-900 dark:to-indigo-950 text-white overflow-hidden transition-colors duration-200">
-        <div className="absolute inset-0 bg-black/20 dark:bg-black/40" />
-        <div className="relative max-w-7xl mx-auto px-4 py-24 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">Explore. Compare. Grow.</h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto opacity-90 dark:text-gray-300">
-            Real salaries, honest reviews, and insider insights from millions of professionals.
+      <section className="pt-20 pb-16 px-4 bg-gradient-to-b from-[#F2F7F5] to-background">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-[48px] md:text-[64px] font-bold tracking-tight mb-4 text-deep-text">
+            Explore. Compare. <span className="text-primary">Grow.</span>
+          </h1>
+          <p className="text-[18px] text-body-text mb-10 max-w-2xl mx-auto">
+            Explore salaries, read real reviews, prepare for interviews,
+            and find the right opportunities — all in one place.
           </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Button variant="primary" size="lg" href="/salaries">
-              Explore Salaries
-            </Button>
-            <Button variant="outline" size="lg" href="/community" className="border-white text-white hover:bg-white/10">
-              Join Community
-            </Button>
+
+          {/* Search Box */}
+          <div className="bg-surface rounded-2xl shadow-lg p-2 max-w-4xl mx-auto border border-border">
+            <div className="flex gap-6 px-6 py-3 border-b border-border text-sm font-medium text-muted mb-2">
+              <button className="text-deep-text border-b-2 border-deep-text pb-2 px-1 flex items-center gap-2">
+                <span className="w-4 h-4 rounded-full bg-green-100 text-success flex items-center justify-center text-[10px]">$</span> Salaries
+              </button>
+              <button className="pb-2 px-1 flex items-center gap-2 hover:text-deep-text">☆ Reviews</button>
+              <button className="pb-2 px-1 flex items-center gap-2 hover:text-deep-text">💬 Interviews</button>
+              <button className="pb-2 px-1 flex items-center gap-2 hover:text-deep-text">👥 Forum</button>
+            </div>
+            
+            <div className="flex flex-col md:flex-row items-center gap-2 p-2">
+              <div className="flex-1 flex items-center gap-3 px-4 py-2 border-r border-border w-full">
+                <span className="text-muted text-lg">🔍</span>
+                <div className="flex flex-col text-left">
+                  <span className="text-xs font-bold text-deep-text">Search by job title, skill or company</span>
+                  <input type="text" placeholder="e.g. Software Engineer, Data Analyst" className="text-sm outline-none text-body-text w-full" />
+                </div>
+              </div>
+              <div className="flex-1 flex items-center gap-3 px-4 py-2 border-r border-border w-full">
+                <span className="text-muted text-lg">📍</span>
+                <div className="flex flex-col text-left">
+                  <span className="text-xs font-bold text-deep-text">Location</span>
+                  <input type="text" placeholder="e.g. New York, Remote" className="text-sm outline-none text-body-text w-full" />
+                </div>
+              </div>
+              <div className="w-48 flex items-center gap-3 px-4 py-2 w-full">
+                <span className="text-muted text-lg">🏢</span>
+                <div className="flex flex-col text-left">
+                  <span className="text-xs font-bold text-deep-text">Experience</span>
+                  <select className="text-sm outline-none text-body-text bg-transparent w-full">
+                    <option>e.g. 0-2 years</option>
+                  </select>
+                </div>
+              </div>
+              <button className="bg-primary text-white font-bold rounded-xl px-8 py-4 w-full md:w-auto hover:brightness-110 transition">
+                Search
+              </button>
+            </div>
+          </div>
+
+          <div className="flex gap-4 items-center justify-center mt-6 text-sm">
+            <span className="text-muted">Trending searches:</span>
+            <span className="px-3 py-1 bg-white border border-border rounded-full text-body-text">Software Engineer</span>
+            <span className="px-3 py-1 bg-white border border-border rounded-full text-body-text">Data Scientist</span>
+            <span className="px-3 py-1 bg-white border border-border rounded-full text-body-text">Product Manager</span>
           </div>
         </div>
       </section>
 
-      {/* Stats Cards */}
-      <section className="py-12 bg-white dark:bg-gray-900 transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <StatsCard
-              value={`${(totalSalaries / 1000).toFixed(1)}K+`}
-              label="Salary Data Points"
-              trend="Updated daily"
-            />
-            <StatsCard value={`${totalCompanies}+`} label="Companies Researched" trend="Across 50+ countries" />
-            <StatsCard value="100% Free" label="No hidden charges" trend="Real professionals only" />
+      {/* Trust Badges */}
+      <section className="py-8 border-y border-border bg-surface">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left divide-x divide-border">
+          <div className="px-4 flex items-center gap-4">
+            <span className="text-2xl">✓</span>
+            <div>
+              <div className="font-bold text-deep-text">Verified & Trusted</div>
+              <div className="text-xs text-muted">Real data. Real people.</div>
+            </div>
+          </div>
+          <div className="px-4 flex items-center gap-4">
+            <span className="text-2xl">👥</span>
+            <div>
+              <div className="font-bold text-deep-text">10M+ Users</div>
+              <div className="text-xs text-muted">Across the globe</div>
+            </div>
+          </div>
+          <div className="px-4 flex items-center gap-4">
+            <span className="text-2xl">🏢</span>
+            <div>
+              <div className="font-bold text-deep-text">500K+ Companies</div>
+              <div className="text-xs text-muted">Researched & reviewed</div>
+            </div>
+          </div>
+          <div className="px-4 flex items-center gap-4">
+            <span className="text-2xl">🔓</span>
+            <div>
+              <div className="font-bold text-deep-text">100% Free</div>
+              <div className="text-xs text-muted">No hidden charges</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Top Paying Companies */}
-      <section className="py-12 bg-gray-50 dark:bg-gray-950 transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Top Paying Companies</h2>
-          <TopCompanies companies={topCompanies} />
-          <div className="text-center mt-8">
-            <Button variant="outline" href="/companies">
-              View all companies →
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* Hubs */}
+      <section className="py-16 max-w-6xl mx-auto px-4">
+        <h2 className="text-[28px] font-bold text-deep-text mb-8">Explore the world of work</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="col-span-1 md:col-span-1 p-6 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-4 text-success font-bold text-sm">
+                <span className="w-5 h-5 rounded bg-green-100 flex items-center justify-center">$</span>
+                MOST EXPLORED
+              </div>
+              <h3 className="text-xl font-bold mb-2">Compensation Intelligence</h3>
+              <p className="text-sm text-body-text mb-6">Explore real salary data and compensation trends across roles, companies and cities.</p>
+              <div className="bg-background rounded-lg p-4 mb-4">
+                <div className="text-xs text-muted">Average Salary (India)</div>
+                <div className="text-2xl font-bold text-success">₹28.4 <span className="text-sm text-body-text font-normal">LPA</span></div>
+              </div>
+            </div>
+            <Link href="/salaries" className="text-primary font-medium hover:underline text-sm mt-4 inline-block">
+              Explore salaries →
+            </Link>
+          </Card>
 
-      {/* Salary Heatmap */}
-      <section className="py-12 bg-white dark:bg-gray-900 transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Salary Heatmap by Role & Location</h2>
-          <SalaryHeatmap data={heatmapData} />
-          <div className="text-center mt-8">
-            <Button variant="outline" href="/salaries">
-              Explore full heatmap →
-            </Button>
-          </div>
-        </div>
-      </section>
+          <Card className="p-6">
+            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
+              <span className="text-warning text-xl">☆</span> Company Reviews & Culture
+            </h3>
+            <p className="text-sm text-body-text mb-6">Read honest reviews and discover real workplace culture.</p>
+            <div className="flex items-center gap-4 mb-6">
+              <div>
+                <div className="text-xl font-bold">4.1 <span className="text-warning text-sm">★★★★☆</span></div>
+                <div className="text-xs text-muted">Overall rating</div>
+              </div>
+            </div>
+            <Link href="/reviews" className="text-primary font-medium hover:underline text-sm">
+              Explore reviews →
+            </Link>
+          </Card>
 
-      {/* Call to Action */}
-      <section className="bg-blue-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Add your salary & unlock all insights</h2>
-          <p className="text-lg mb-6 opacity-90">
-            Help thousands of professionals by sharing your salary anonymously.
-          </p>
-          <Button
-            size="lg"
-            href="/salaries/contribute"
-            className="!bg-white !text-blue-600 hover:!bg-blue-50 font-bold shadow-lg"
-          >
-            Contribute now →
-          </Button>
+          <Card className="p-6">
+            <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
+              <span className="text-purple-600 text-xl">💬</span> Interview Experiences
+            </h3>
+            <p className="text-sm text-body-text mb-6">Practice with real interview questions shared by candidates.</p>
+            <div className="space-y-3 mb-6">
+              <div className="bg-background p-3 rounded text-sm font-medium">Meta PM interview difficulty</div>
+            </div>
+            <Link href="/interviews" className="text-primary font-medium hover:underline text-sm">
+              Explore interviews →
+            </Link>
+          </Card>
         </div>
       </section>
     </div>
