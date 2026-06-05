@@ -187,8 +187,8 @@ export default async function SalariesPage({ searchParams }: { searchParams: Pro
 
         
         {/* We will build SalaryExplorer as a Client Component for interactivity later */}
-        <div id="salaries-table" className="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
-          <table className="w-full text-left border-collapse">
+        <div id="salaries-table" className="bg-surface border border-border rounded-xl shadow-sm overflow-x-auto">
+          <table className="w-full text-left border-collapse whitespace-nowrap">
             <thead>
               <tr className="border-b border-border bg-hover">
                 <th className="p-4 font-bold text-deep-text text-sm">Company</th>
