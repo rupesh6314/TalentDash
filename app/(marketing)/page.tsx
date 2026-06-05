@@ -32,11 +32,11 @@ export default async function HomePage() {
 
           <div className="flex flex-wrap gap-3 items-center justify-center mt-8 text-sm">
             <span className="text-muted font-medium">Trending searches:</span>
-            <span className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Software Engineer</span>
-            <span className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Data Scientist</span>
-            <span className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Product Manager</span>
-            <span className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Marketing Manager</span>
-            <span className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Remote Jobs</span>
+            <Link href="/salaries?role=Software+Engineer" className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Software Engineer</Link>
+            <Link href="/salaries?role=Data+Scientist" className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Data Scientist</Link>
+            <Link href="/salaries?role=Product+Manager" className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Product Manager</Link>
+            <Link href="/salaries?role=Marketing+Manager" className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Marketing Manager</Link>
+            <Link href="/jobs?location=Remote" className="px-4 py-2 bg-surface/80 backdrop-blur-sm border border-border rounded-full text-deep-text font-medium hover:bg-surface cursor-pointer shadow-sm">Remote Jobs</Link>
           </div>
 
           {/* Trust Badges */}

@@ -14,7 +14,7 @@ export default function HeroSearch() {
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-    if (query) params.set('q', query);
+    if (query) params.set('role', query);
     if (location) params.set('location', location);
     if (experience && experience !== 'e.g. 0-2 years') params.set('exp', experience);
     
