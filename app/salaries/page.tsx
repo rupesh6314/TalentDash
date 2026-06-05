@@ -17,7 +17,9 @@ function getLevelBadgeClass(level: string) {
 
 export default async function SalariesPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const resolvedSearchParams = await searchParams;
-  const q = resolvedSearchParams.q ? String(resolvedSearchParams.q).toLowerCase() : undefined;
+  const company = resolvedSearchParams.company ? String(resolvedSearchParams.company) : undefined;
+  const role = resolvedSearchParams.role ? String(resolvedSearchParams.role) : undefined;
+  const location = resolvedSearchParams.location ? String(resolvedSearchParams.location) : undefined;
   
   let salaries: any[] = [];
   
@@ -25,15 +27,14 @@ export default async function SalariesPage({ searchParams }: { searchParams: Pro
     // Direct Prisma Query
     const salariesData = await prisma.salary.findMany({
       where: {
-        ...(q ? {
-          OR: [
-            { role: { contains: q, mode: 'insensitive' } },
-            { company: { name: { contains: q, mode: 'insensitive' } } }
-          ]
-        } : {})
+        AND: [
+          company ? { company: { name: { contains: company, mode: 'insensitive' } } } : {},
+          role ? { role: { contains: role, mode: 'insensitive' } } : {},
+          location ? { location: { contains: location, mode: 'insensitive' } } : {}
+        ]
       },
       include: { company: true },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { submittedAt: 'desc' },
       take: 100
     });
 
@@ -47,9 +48,9 @@ export default async function SalariesPage({ searchParams }: { searchParams: Pro
     }));
   } catch (error) {
     salaries = [
-      { id: 'mock-1', company: { name: 'Google', slug: 'google' }, role: 'Software Engineer', level: 'L4', location: 'Mountain View, CA', baseSalary: 160000, bonus: 24000, stock: 80000, totalCompensation: 264000, yearsOfExperience: 3, confidenceScore: 95, createdAt: new Date() },
-      { id: 'mock-2', company: { name: 'Meta', slug: 'meta' }, role: 'Frontend Engineer', level: 'E5', location: 'Menlo Park, CA', baseSalary: 200000, bonus: 30000, stock: 120000, totalCompensation: 350000, yearsOfExperience: 6, confidenceScore: 92, createdAt: new Date() },
-      { id: 'mock-3', company: { name: 'Amazon', slug: 'amazon' }, role: 'Data Scientist', level: 'L5', location: 'Seattle, WA', baseSalary: 165000, bonus: 0, stock: 95000, totalCompensation: 260000, yearsOfExperience: 4, confidenceScore: 88, createdAt: new Date() }
+      { id: 'mock-1', company: { name: 'Google', slug: 'google' }, role: 'Software Engineer', level: 'L4', location: 'Mountain View, CA', baseSalary: 160000, bonus: 24000, stock: 80000, totalCompensation: 264000, yearsOfExperience: 3, confidenceScore: 95, submittedAt: new Date() },
+      { id: 'mock-2', company: { name: 'Meta', slug: 'meta' }, role: 'Frontend Engineer', level: 'E5', location: 'Menlo Park, CA', baseSalary: 200000, bonus: 30000, stock: 120000, totalCompensation: 350000, yearsOfExperience: 6, confidenceScore: 92, submittedAt: new Date() },
+      { id: 'mock-3', company: { name: 'Amazon', slug: 'amazon' }, role: 'Data Scientist', level: 'L5', location: 'Seattle, WA', baseSalary: 165000, bonus: 0, stock: 95000, totalCompensation: 260000, yearsOfExperience: 4, confidenceScore: 88, submittedAt: new Date() }
     ];
   }
 

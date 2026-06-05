@@ -155,7 +155,7 @@ async function main() {
       bonus: BigInt(bonus),
       stock: BigInt(stock),
       totalCompensation: BigInt(base + bonus + stock),
-      source: Source.USER_SUBMITTED,
+      source: Source.CONTRIBUTOR,
       confidenceScore: 0.85
     });
   }
