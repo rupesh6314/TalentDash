@@ -79,7 +79,7 @@ export default async function CommunityPage() {
             <h1 className="text-[36px] font-bold text-deep-text mb-2">Real conversations. Real insights.</h1>
             <p className="text-body-text text-lg">Join the discussion with tech professionals worldwide.</p>
           </div>
-          <Button variant="primary" className="font-bold hidden md:flex">
+          <Button href="/community/new" variant="primary" className="font-bold hidden md:flex">
             Start a discussion +
           </Button>
         </div>
@@ -128,7 +128,7 @@ export default async function CommunityPage() {
             )}
             {trendingPosts.length > 0 && (
               <div className="text-center pt-4">
-                <Button variant="outline" className="w-full">Load more discussions</Button>
+                <Button href="?page=2" variant="outline" className="w-full">Load more discussions</Button>
               </div>
             )}
           </div>
