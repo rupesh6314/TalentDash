@@ -37,12 +37,7 @@ export default function Header() {
           ))}
         </nav>
         <div className="hidden lg:flex items-center gap-4 ml-auto">
-          <Link href="/login" className="text-deep-text font-semibold hover:text-primary flex items-center gap-2">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
-            Log in
-          </Link>
-          <Button variant="primary" className="font-bold px-4 py-2">Sign up</Button>
-          <Link href="/contribute" className="text-deep-text font-semibold hover:text-primary flex items-center gap-2 ml-2">
+          <Link href="/contribute" className="text-deep-text font-semibold hover:text-primary flex items-center gap-2">
             <span className="text-lg">♡</span> Contribute
           </Link>
           <Link href="/employer" className="text-deep-text font-semibold hover:text-primary flex items-center gap-2 ml-2">
@@ -63,8 +58,6 @@ export default function Header() {
             </Link>
           ))}
           <div className="flex flex-col gap-3 pt-4 border-t border-border">
-            <Link href="/login" className="font-semibold text-deep-text">Log in</Link>
-            <Button variant="primary" className="w-full justify-center">Sign up</Button>
             <Link href="/contribute" className="font-semibold text-deep-text">♡ Contribute</Link>
             <Link href="/employer" className="font-semibold text-deep-text">💼 Employer</Link>
           </div>
