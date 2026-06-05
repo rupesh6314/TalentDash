@@ -1,43 +1,52 @@
-# TalentDash – Full‑Stack Salary Platform
+# TalentDash
 
-## Architecture Decisions (FS4)
+TalentDash is a verified compensation intelligence platform. It provides a community-driven database for professionals to explore real salaries, read honest company reviews, and prepare for interviews.
 
-### Static vs ISR vs Dynamic
+## 🚀 Architecture Decisions
 
-| Page                | Strategy         | Rationale                                                                 |
-|---------------------|------------------|---------------------------------------------------------------------------|
-| `/salaries`         | ISR (300s)       | Frequently updated – 5min CDN cache, background revalidate.              |
-| `/companies/[slug]` | Static + ISR     | Slugs from DB at build time. ISR updates pages when new salaries arrive. |
-| `/compare`          | Dynamic (client) | User‑selected records – no caching benefit.                              |
+This project is built as a production-grade full-stack application using **Next.js 15 (App Router)** and **Prisma ORM**, adhering strictly to modern Data-First design principles.
 
-### Pagination
+### React Server Components (RSC) vs Client Components
+We heavily leverage Server Components to push data fetching to the edge and reduce client-side JavaScript bundles:
+- **Server Components:** Pages like `/` (Home), `/salaries` (Salary Explorer), and `/companies/[slug]` fetch data directly via internal APIs or Prisma on the server. They render static HTML that is instantly interactive and SEO-friendly.
+- **Client Components:** We strictly isolate interactive elements (e.g., the `OfferComparator` on the `/compare` page, the salary filtering logic) into Client Components (`'use client'`). This ensures the majority of the page remains server-rendered while preserving stateful interactivity where needed.
 
-**Page‑based (offset/limit)** – simple, SEO‑friendly. With proper indexes, fast up to 100k rows. Future: cursor‑based for larger scale.
+### Caching Strategy & ISR
+To ensure the application can handle millions of users and maintain an LCP (Largest Contentful Paint) of < 2s:
+- **Incremental Static Regeneration (ISR):** Critical pages use `export const revalidate = 3600;` to serve cached static pages that revalidate in the background every hour.
+- **API Edge Caching:** Public API routes (like `GET /api/salaries`) use `Cache-Control: s-maxage=300, stale-while-revalidate=3600` to offload database reads to the CDN.
+- **Static Generation:** The company pages (`/companies/[slug]`) use `generateStaticParams()` to pre-build company profiles at deployment time, ensuring instantaneous navigation.
 
-### Cache Headers
+### Design System
+- **No Generic Templates:** Built from scratch following a strict **Airbnb-style Data-First Design System**. 
+- **Semantic CSS:** Custom Tailwind tokens (`bg-background`, `text-primary`, `bg-surface`) manage consistent styling across the application without hardcoded colors.
+- **Light-Mode Only:** Optimized for clarity and data visualization, avoiding the distraction of dark mode for analytical dashboards.
 
-- `/api/salaries`: `s-maxage=300, stale-while-revalidate=3600` – 5 min fresh, serve stale for 1h.
-- `/api/companies/:slug`: `s-maxage=3600, stale-while-revalidate=86400` – 1h fresh, stale for 1d.
+## 🗄️ Database Schema & Normalisation
+- **PostgreSQL via Neon DB:** A highly scalable remote database.
+- **Company Normalisation:** An intelligent pipeline automatically strips punctuation and standardizes capitalization during ingestion, ensuring that "Google India", "google", and "GOOGLE" all resolve to the unified `google` slug.
+- **Validation:** Strict validation rules (0.0-1.0 confidence score bounds, experience ranges) using Prisma models and Next.js API routes.
 
-### What I would build differently with another day
+## 🏃‍♂️ Getting Started
 
-- Authentication (NextAuth)
-- Webhook to trigger ISR after POST
-- Unit/integration tests
-- Full‑text search
-
-### What I did NOT build (scope)
-
-- User accounts
-- Email notifications
-- Export CSV
-- Dark mode (functional but not pixel‑perfect)
-
-## Setup
-
+1. Clone the repository and install dependencies:
 ```bash
 npm install
-npx prisma migrate dev --name init
+```
+
+2. Set up your `.env` file with your Postgres database URL:
+```env
+DATABASE_URL="postgresql://user:password@host/db?schema=public"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+```
+
+3. Push the schema and seed the database:
+```bash
+npx prisma db push
 npx prisma db seed
-npm run build
-npm start
+```
+
+4. Run the development server:
+```bash
+npm run dev
+```

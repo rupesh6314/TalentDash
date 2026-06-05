@@ -33,8 +33,17 @@ function getLevelBadgeClass(level: string) {
 export default async function SalariesPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const { data: salaries, meta } = await getSalaries(searchParams);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: 'Tech Salaries Database',
+    description: 'Verified compensation records from engineers across top tech companies.',
+    url: `${process.env.NEXT_PUBLIC_APP_URL}/salaries`,
+  };
+
   return (
     <div className="bg-background min-h-screen py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>

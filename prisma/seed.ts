@@ -59,7 +59,7 @@ async function main() {
   // Edge Case 3: Very High Equity
   const c3 = await findOrCreateCompany('Meta');
   salaryData.push({
-    companyId: c3.id, role: 'Machine Learning Engineer', level: Level.E5, location: 'San Francisco', currency: Currency.USD, experienceYears: 8,
+    companyId: c3.id, role: 'Machine Learning Engineer', level: Level.L5, location: 'San Francisco', currency: Currency.USD, experienceYears: 8,
     baseSalary: BigInt(220000), bonus: BigInt(40000), stock: BigInt(800000), totalCompensation: BigInt(1060000), source: Source.AI_INFERRED, confidenceScore: 0.7
   });
 
