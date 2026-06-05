@@ -10,7 +10,7 @@ export default function ContributePage() {
       <p className="text-body-text text-lg mb-10">Your anonymous contributions help millions of professionals make better career decisions.</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-        <Link href="/contribute/salary" className="block">
+        <Link href="/salaries/contribute" className="block">
           <Card hover className="p-6 h-full border-transparent hover:border-primary/50 transition">
             <div className="text-3xl mb-4">💰</div>
             <h3 className="font-bold text-lg mb-2 text-deep-text">Add a Salary</h3>
