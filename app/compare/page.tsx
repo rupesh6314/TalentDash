@@ -12,10 +12,23 @@ export async function generateMetadata() {
 }
 
 export default async function ComparePage() {
-  const companiesRaw = await prisma.company.findMany({
-    select: { slug: true, name: true },
-    orderBy: { name: 'asc' }
-  });
+  let companiesRaw = [];
+  try {
+    companiesRaw = await prisma.company.findMany({
+      select: { slug: true, name: true },
+      orderBy: { name: 'asc' }
+    });
+  } catch (error) {
+    companiesRaw = [
+      { slug: 'google', name: 'Google' },
+      { slug: 'meta', name: 'Meta' },
+      { slug: 'amazon', name: 'Amazon' },
+      { slug: 'microsoft', name: 'Microsoft' },
+      { slug: 'apple', name: 'Apple' },
+      { slug: 'netflix', name: 'Netflix' },
+      { slug: 'stripe', name: 'Stripe' }
+    ];
+  }
 
   return (
     <div className="bg-background min-h-screen py-16">

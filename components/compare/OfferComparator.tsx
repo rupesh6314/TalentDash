@@ -34,21 +34,41 @@ export default function OfferComparator({ companies }: { companies: CompanyOptio
 
   useEffect(() => {
     if (c1Slug) {
-      fetch(`/api/companies/${c1Slug}`).then(res => res.json()).then(setData1);
-      // Update URL
+      fetch(`/api/companies/${c1Slug}`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.company) {
+            setData1(data);
+          } else {
+            setData1(null);
+          }
+        })
+        .catch(() => setData1(null));
       const url = new URL(window.location.href);
       url.searchParams.set('c1', c1Slug);
       window.history.replaceState({}, '', url);
+    } else {
+      setData1(null);
     }
   }, [c1Slug]);
 
   useEffect(() => {
     if (c2Slug) {
-      fetch(`/api/companies/${c2Slug}`).then(res => res.json()).then(setData2);
-      // Update URL
+      fetch(`/api/companies/${c2Slug}`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.company) {
+            setData2(data);
+          } else {
+            setData2(null);
+          }
+        })
+        .catch(() => setData2(null));
       const url = new URL(window.location.href);
       url.searchParams.set('c2', c2Slug);
       window.history.replaceState({}, '', url);
+    } else {
+      setData2(null);
     }
   }, [c2Slug]);
 
