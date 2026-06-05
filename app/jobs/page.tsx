@@ -26,8 +26,8 @@ export default function JobsPage() {
               <div className="text-muted text-sm mt-1">{job.company} • {job.location} • {job.type}</div>
             </div>
             <div className="text-right">
-              <div className="text-success font-bold">{job.salary}</div>
-              <button className="mt-2 text-sm bg-primary text-white px-4 py-1.5 rounded font-medium">Apply</button>
+              <div className="text-success font-bold mb-2">{job.salary}</div>
+              <Link href="/signup" className="text-sm bg-primary hover:brightness-110 text-white px-5 py-2 rounded font-medium transition-all">Apply</Link>
             </div>
           </Card>
         ))}

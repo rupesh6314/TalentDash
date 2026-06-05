@@ -75,7 +75,7 @@ export default async function SalariesPage({ searchParams }: { searchParams: Pro
             <h1 className="text-[36px] font-bold text-deep-text mb-2">Real salary insights. Real career growth.</h1>
             <p className="text-body-text text-lg">Explore verified compensation data from professionals around the world.</p>
           </div>
-          <Button variant="ghost" className="text-primary font-bold hidden md:flex border border-border bg-white" href="/salaries">
+          <Button variant="ghost" className="text-primary font-bold hidden md:flex border border-border bg-white" href="#salaries-table">
             Explore all salaries →
           </Button>
         </div>
@@ -187,7 +187,7 @@ export default async function SalariesPage({ searchParams }: { searchParams: Pro
 
         
         {/* We will build SalaryExplorer as a Client Component for interactivity later */}
-        <div className="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
+        <div id="salaries-table" className="bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-border bg-hover">
